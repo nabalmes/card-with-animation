@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alibi-links
+  namespace: pudding-staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alibi-links
+  template:
+    metadata:
+      labels:
+        app: alibi-links
+    spec:
+      containers:
+      - name: alibi-links
+        image: registry.integranet.ph/pudding/alibi-links:latest
+        ports:
+        - containerPort: 80
+          name: http
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alibi-links
+  namespace: pudding-staging
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: alibi-links
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: alibi-links
+  namespace: pudding-staging
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+spec:
+  tls:
+  - hosts:
+    - links.idalibi.com
+    secretName: alibi-links
+  rules:
+    - host: links.idalibi.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: alibi-links
+                port:
+                  number: 80
+  ingressClassName: nginx

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID Alibi Links</title>
+
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        width: 100%;
+        background: #212428;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 6.43rem;
+        overflow: hidden;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        background: #212428;
+    }
+
+   
+
+    header img {
+        width: clamp(120px, 12vw, 170px);
+        filter: invert(1);
+    }
+
+    .link-container {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: calc(100% - 6.43rem);
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2.5rem;
+        justify-content: center;
+        align-items: center;
+
+        padding: 20px 0;
+        overflow: auto;
+    }
+
+    @media(max-width:768px){
+        header{
+            height: 4.63rem;
+        }
+
+        .link-container {
+            height: calc(100% - 4.63rem);
+        }
+    }
+
+    .link-container::-webkit-scrollbar{
+        width: 5px;
+        background: #2c2c2cda;
+    }
+
+    .link-card__wrapper {
+        background: #212428;
+        border: none;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        box-shadow: 10px 10px 19px #181b1e, -10px -10px 19px #2a2d32;
+        height: 500px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        max-width: 300px;
+        user-select: none;
+
+    }
+
+    .link-card__wrapper::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: linear-gradient(180deg, rgba(2, 0, 36, 0) 40%, rgba(0, 0, 0, 1) 100%);
+        z-index: 1;
+    }
+
+    .link {
+        position: relative;
+        border: 1px solid #a40505;
+        border-radius: 10px;
+        padding: 20px;
+
+        cursor: pointer;
+
+    }
+
+    .card-info {
+        bottom: 0;
+        height: 100%;
+        position: absolute;
+        text-align: center;
+        transition: -webkit-transform 1s cubic-bezier(.785, .135, .15, .86);
+        transition: transform 1s cubic-bezier(.785, .135, .15, .86);
+        transition: transform 1s cubic-bezier(.785, .135, .15, .86), -webkit-transform 1s cubic-bezier(.785, .135, .15, .86);
+        width: 100%;
+    }
+
+    .card-info.hover {
+        transform: translateX(-100%);
+    }
+
+    .link-card__wrapper::hover .card-info::before {
+        transform: translateX(-100%);
+    }
+
+    .card-info img {
+
+        width: 100%;
+        height: 100%;
+    }
+
+    .card-bio {
+
+        background: #212428;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 100%;
+        justify-content: center;
+        text-align: center;
+        transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        -moz-transform: translateX(100%);
+        -ms-transform: translateX(100%);
+        -o-transform: translateX(100%);
+        transition: -webkit-transform 1s cubic-bezier(.785, .135, .15, .86);
+        transition: transform 1s cubic-bezier(.785, .135, .15, .86);
+        transition: transform 1s cubic-bezier(.785, .135, .15, .86), -webkit-transform 1s cubic-bezier(.785, .135, .15, .86);
+        position: relative;
+        z-index: 2;
+    }
+
+    .card-bio.hover {
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+    }
+
+    .title {
+        bottom: 15px;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        z-index: 1;
+    }
+
+    .visit-link__btn {
+        background: #212428;
+        border: none;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        box-shadow: 10px 10px 19px #181b1e, -10px -10px 19px #2a2d32;
+        color: #fff;
+        font-family: Poppins, sans-serif;
+        font-weight: 600;
+        padding: 10px 30px;
+        transition: all .4s ease;
+        -webkit-transition: all .4s ease;
+        -moz-transition: all .4s ease;
+        -ms-transition: all .4s ease;
+        -o-transition: all .4s ease;
+
+        cursor: pointer;
+        z-index: 100;
+    }
+
+    .visit-link__btn a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 20px;
+    }
+</style>
+
+<body>
+    <header>
+        <img src="https://app.digitalalibi.ai/static/assets/images/ID_Alibi_SVG.svg" alt="logo">
+    </header>
+    <section class="link-container">
+        <div class="link-card__wrapper">
+            <div class="card-info">
+                <img src="image/app-digital.png" alt="">
+                <p class="title f-po">Application</p>
+            </div>
+
+            <div class="card-bio">
+                <button class="visit-link__btn"><a href="https://app.digitalalibi.ai/" target="_blank">Visit
+                        Link</a></button>
+            </div>
+        </div>
+        <div class="link-card__wrapper">
+            <div class="card-info">
+                <img src="image/app-digital.png" alt="">
+                <p class="title f-po">Maintenance</p>
+            </div>
+            <div class="card-bio">
+                <button class="visit-link__btn"><a href="https://maintenance.digitalalibi.ai/" target="_blank">Visit
+                        Link</a></button>
+            </div>
+        </div>
+
+        <div class="link-card__wrapper">
+            <div class="card-info">
+                <img src="image/shop-alibi.png" alt="">
+                <p class="title f-po">ID Alibi Store</p>
+            </div>
+
+            <div class="card-bio">
+                <button class="visit-link__btn"><a href="https://shop.digitalalibi.ai/" target="_blank">Visit
+                        Link</a></button>
+            </div>
+        </div>
+
+        <div class="link-card__wrapper">
+            <div class="card-info">
+                <img src="image/payments.png" alt="">
+                <p class="title f-po">Payments</p>
+            </div>
+
+            <div class="card-bio">
+                <button class="visit-link__btn"><a href="https://payments.digitalalibi.ai/" target="_blank">Visit
+                        Link</a></button>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    let cardWrapper = document.querySelectorAll(".link-card__wrapper");
+    let title = document.querySelector(".title")
+    cardWrapper.forEach(e => {
+        console.log(e.children[1]);
+        e.addEventListener("mouseover", () => {
+            e.children[0].classList.toggle('hover')
+            e.children[1].classList.toggle('hover')
+            // e.children[0].style.transform = "translateX(-100%)"
+            // e.children[1].style.transform = "translateX(0)"
+        })
+
+        e.addEventListener("mouseout", () => {
+            e.children[0].classList.remove('hover')
+            e.children[1].classList.remove('hover')
+            title.style.zIndex = "1";
+        })
+
+    })
+
+
+</script>
+
+</html>
